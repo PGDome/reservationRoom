@@ -10,7 +10,7 @@ body{
 	background-color: #EEE;
 	 
 }
- .btn-menu{
+ .btn-user{
  display: block;
  padding:20px;
  background: #494949;
@@ -24,16 +24,16 @@ body{
 	margin-right: auto;
 }
 #header{
+	width:100%;
 	background-color: #fff;
 	color: #000000;
 	text-align: center;
 }
 #content{
-	padding: 10px;
-
 }
 .sidebar-wrapper{
 	width: 30%;
+	height:100%;
 	float: left;
     display:inline-block;
     background-color: #FFF;
@@ -103,4 +103,5 @@ body{
  
  }
 }
+
 
