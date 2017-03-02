@@ -8,12 +8,11 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-		 <h1>System</h1>
-		</div>
+		
 		<div id="content">
 		     <div class="sidebar-wrapper">
-		     		<a  href="#" class="btn-menu">Menu</a> 
+		     		<div id="header">System</div>
+		     		<div class="btn-user">Name</div>
 				<ul class="menu" >
 			 		<li >
                 		<a href="#">Shortcuts</a>
@@ -39,9 +38,7 @@
 		     		 pricing table templates for easy integration. If you already thought of your unique list to impress the visitors then go ahead and create amazing looking templates from these below pricing templates i have got for you. Good thing is that these free pricing templates have tutorials which will help you create your own in the future. Please share in your valuable thoughts on these find and if these were useful enough. Take a look at Free HTML and CSS3 UI kits we added last month which will come in handy as well.</p>
 		     </div>
 		</div>
-		<div id="footer">
-			<h3>footer PAGE</h3>
-		</div>
+		
 	</div>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="js/main.js"></script>
