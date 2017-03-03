@@ -1,0 +1,47 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link href="css/pageStyle1.css" rel="stylesheet">
+</head>
+<body>
+	
+		
+	
+		     <div class="sidebar-wrapper">
+		     		<div id="header">System</div>
+		     		<div class="btn-user"><c:out value="${sessionScope.empID}"/></div>
+				<ul class="menu" >
+			 		<li >
+                		<a href="#">Shortcuts</a>
+                	<ul >
+                    	<li><a href="/application.jsp">Second level</a></li>
+                    	<li><a href="#">Second level</a></li>
+                    	<li><a href="#">Second level</a></li>
+                	</ul>
+            		</li>
+            		<li >
+                		<a href="#">Shortcuts</a>
+                		<ul >
+                    		<li><a href="#">Second level</a></li>
+                    		<li><a href="#">Second level</a></li>
+                    		<li><a href="#">Second level</a></li>
+                		</ul>
+            		</li>
+        		</ul>
+		     </div>
+		     <div id="page-content">
+		     		<h3>home PAGE</h3>
+		     		<p>Here in this article you will find around 22 best html css
+		     		 pricing table templates for easy integration. If you already thought of your unique list to impress the visitors then go ahead and create amazing looking templates from these below pricing templates i have got for you. Good thing is that these free pricing templates have tutorials which will help you create your own in the future. Please share in your valuable thoughts on these find and if these were useful enough. Take a look at Free HTML and CSS3 UI kits we added last month which will come in handy as well.</p>
+		     </div>
+	
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
