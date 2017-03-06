@@ -1,0 +1,71 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link href="css/pageStyle.css" rel="stylesheet">
+<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div id="wrapper">
+ <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <%@include file="sidebar.jsp" %>
+    </div>
+         <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div >
+              <h1>searchCondition2</h1>
+            </div>  
+            <form name="frmSearchYYMM" id="frmSearchYYMM" action="controller" method = "Post" >
+            	<div>
+            		<select name="year">
+            			<option value="0"><c:out value="${'---'}"/></option>
+ 						<c:forEach var="i" begin="${year}" end="${year+2}">
+ 							<option value="${i}"><c:out value="${i}"/></option>
+						</c:forEach>
+					</select>
+            	</div>
+            	<div>
+            		<select name="m">
+            			<option value="0"><c:out value="${'---'}"/></option>
+ 						<c:forEach var="i" begin="1" end="12">	
+ 							<option value="${i}"><c:out value="${i}"/></option>
+						</c:forEach>
+					</select>
+            	</div>
+            	 <div>
+            		<select name="time">
+            			<option value="0"><c:out value="${'---'}"/></option>
+            			<c:forEach var="item" items="${listTime}">
+            				<option value="${item.getTimeID()}"><c:out value="${item.getTimeName()}"/></option>
+            			</c:forEach>
+            		</select>
+            	</div>
+            	<div>
+            		<select name="room">
+            			<option value="0"><c:out value="${'---'}"/></option>
+            			<c:forEach var="item" items="${listRoom}">
+            				<option value="${item.getRoomID()}"><c:out value="${item.getRoomName()}"/></option>
+            			</c:forEach>
+            		</select>
+            	</div>
+            	<input type="submit" name="action" value="search"  style=" width:100px">	
+				<input type="hidden" name="nPage" value="searchConditon2" />
+			</form>
+            
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+	
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
