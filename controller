@@ -1,6 +1,6 @@
-
-
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import roomReservationSystem.loginDAO;
+import roomReserveSystem.loginDAO;
+import roomReserveSystem.time;
+import roomReserveSystem.timeDAO;
 
 /**
  * Servlet implementation class controller
@@ -16,6 +18,7 @@ import roomReservationSystem.loginDAO;
 @WebServlet("/controller")
 public class controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private HttpSession sessionVerify;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -31,6 +34,11 @@ public class controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
+		 
+        //System.out.println("selectedTopic = "+selectedTopic);
+
+		
 	}
 
 	/**
@@ -39,21 +47,41 @@ public class controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		String verify = request.getParameter("action");
-		//System.out.println("chk"+verify);
-		if(("login").equals(verify)){
-			String empID=request.getParameter("empID");
-			String pass=request.getParameter("pass");
-			loginDAO login=new loginDAO();
-			if(login.verifyLogin(empID, pass)){
-				  HttpSession session=request.getSession();  
-			      session.setAttribute("empName",login.getEmpName());  
-			      session.setAttribute("empID",empID);  
-			      request.getRequestDispatcher("/application.jsp").forward(request,response);
-			}else{
-				request.getRequestDispatcher("/index.jsp").forward(request,response);
+		request.setCharacterEncoding("UTF-8");
+	    sessionVerify = request.getSession(false);  
+		if(("index").equals(request.getParameter("nPage"))){
+			if(("login").equals(request.getParameter("action"))){
+				String empID=request.getParameter("empID");
+				String pass=request.getParameter("pass");
+				loginDAO login=new loginDAO();
+				if(login.verifyLogin(empID, pass)){
+					  HttpSession session=request.getSession();  
+				      session.setAttribute("empName",login.getEmpName());  
+				      session.setAttribute("empID",empID);  
+				      request.getRequestDispatcher("/application.jsp").forward(request,response);
+				}else{
+					  request.getRequestDispatcher("/index.jsp").forward(request,response);
+				}
 			}
-		}
-	}
+		}//loop login
+		else if( sessionVerify.getAttribute("empID") != null){
+			if(("logout").equals(request.getParameter("selectedTopic"))){
+				HttpSession session=request.getSession();  
+	            session.invalidate();  
+	            request.getRequestDispatcher("/index.jsp").forward(request,response);
+			}else if(("searchYYMM").equals(request.getParameter("selectedTopic"))){
+				timeDAO times = new timeDAO();
+		        ArrayList<time> items = times.getTimes();
+		        for(int i=0;i<items.size();i++){
+		        	System.out.println(items.get(i).getTimeID());
+		        }
+				request.getRequestDispatcher("/searchCondition2.jsp").forward(request,response);
+			}			
+		}//loop check session is not null
+		else{
+			request.getRequestDispatcher("/index.jsp").forward(request,response);  
+		}//loop check session 
+	
+	}//loop doPost
 
 }
