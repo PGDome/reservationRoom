@@ -5,11 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class timeDAO {
-	public ArrayList<time> getTimes(){
+	public List<time> getTimes(){
 		Connection conn = connectToDB.getConnection();
-		ArrayList<time> items = new ArrayList();
+		List<time> items = new ArrayList<time>();
 	    try
 	    {
 	      Statement stmt = conn.createStatement();
