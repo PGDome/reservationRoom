@@ -1,0 +1,18 @@
+package roomReserveSystem;
+
+public class time {
+     private String  timeName;
+     private int timeID;
+     public void setTimeID(int timeID){
+    	 this.timeID=timeID;
+     }
+     public void setTimeName(String timeName){
+    	 this.timeName=timeName;
+     }
+     public int getTimeID(){
+    	 return this.timeID;
+     }
+     public String getTimeName(){
+    	 return this.timeName;
+     }
+}
