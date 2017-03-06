@@ -1,0 +1,31 @@
+package roomReserveSystem;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class roomDAO {
+	public List<room> getRoom(){
+		Connection conn = connectToDB.getConnection();
+		List<room> items = new ArrayList<room>();
+	    try
+	    {
+	      Statement stmt = conn.createStatement();
+	      ResultSet rs = stmt.executeQuery("SELECT roomID,roomName from room where 1 ");
+	      while(rs.next()) {
+	    	 room rooms=new room();
+	    	 rooms.setRoomID(rs.getInt("roomID"));
+	    	 rooms.setRoomName(rs.getString("roomName"));
+	    	 items.add(rooms);
+	      }	     
+	    }
+	    catch (SQLException se)
+	    {
+	      se.printStackTrace();
+	    }
+	    return items;
+	}
+}
