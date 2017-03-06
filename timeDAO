@@ -1,0 +1,30 @@
+package roomReserveSystem;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+public class timeDAO {
+	public ArrayList<time> getTimes(){
+		Connection conn = connectToDB.getConnection();
+		ArrayList<time> items = new ArrayList();
+	    try
+	    {
+	      Statement stmt = conn.createStatement();
+	      ResultSet rs = stmt.executeQuery("SELECT timeID,timeName from time where 1 ");
+	      while(rs.next()) {
+	    	 time times=new time();
+	    	 times.setTimeID(rs.getInt("timeID"));
+	    	 times.setTimeName(rs.getString("timeName"));
+	    	 items.add(times);
+	      }	     
+	    }
+	    catch (SQLException se)
+	    {
+	      se.printStackTrace();
+	    }
+	    return items;
+	}
+}
