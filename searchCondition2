@@ -32,7 +32,7 @@
 					</select>
             	</div>
             	<div>
-            		<select name="m">
+            		<select name="month">
             			<option value="0"><c:out value="${'---'}"/></option>
  						<c:forEach var="i" begin="1" end="12">	
  							<option value="${i}"><c:out value="${i}"/></option>
@@ -55,10 +55,53 @@
             			</c:forEach>
             		</select>
             	</div>
-            	<input type="submit" name="action" value="search"  style=" width:100px">	
+            	<input type="submit" name="action" value="search"  style=" width:100px">
+            	<c:set var="result"  value="${listResult}"/>
+            	<div>
+            	<c:choose>
+            			<c:when test="${empty result}">
+            				<h1>resultCondition2 not</h1>
+            			</c:when>
+            			<c:otherwise>
+            			    <table >
+            			    	<thead> 
+            			    		<tr>
+            			    		  <th><c:out value="${'date'}"/></th>
+            			    			<c:forEach var="item" items="${listTime}">
+            			    		      <th><c:out value="${item.getTimeName()}"/></th> 	
+            							</c:forEach>
+									</tr> 
+								</thead> 
+								<tbody>
+									<c:set var="listResult"  value="${listResult}"/>
+									<c:forEach var="i" begin="1" end="${daysInMonth}">
+									    <tr>
+									    <td><c:out value="${i}"/></td>
+ 										<c:forEach var="j" begin="1" end="${numTime}">
+ 										<c:choose>
+ 											<c:when test="${not empty listResult[i][j]}">
+ 												<c:forEach var="item" items="${listResult[i][j]}" >
+ 													<td><c:out value="${item.getEmpID()}"></c:out></td>
+ 												</c:forEach>
+ 											</c:when>
+ 											<c:otherwise>
+ 												<td><button type="button" name="action" value="reserve" onclick="submitReserve('bookInfor.jsp',this.form)">復元</button></td>
+ 											</c:otherwise>
+ 										</c:choose>
+										</c:forEach>
+										</tr>
+									</c:forEach>
+								</tbody>
+            			    </table>
+            			</c:otherwise>
+            	</c:choose>
+            	</div>
+            	<input type=hidden name="empID"/> 
+            	<input type=hidden name="reserveDate"/> 
+            	<input type=hidden name="timeID"/>
+            	<input type=hidden name="roomID"/>   
 				<input type="hidden" name="nPage" value="searchConditon2" />
 			</form>
-            
         </div>
         <!-- /#page-content-wrapper -->
     </div>
@@ -68,4 +111,3 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="js/main.js"></script>
 </body>
-</html>
