@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -18,6 +19,8 @@ import roomReserveSystem.room;
 import roomReserveSystem.roomDAO;
 import roomReserveSystem.time;
 import roomReserveSystem.timeDAO;
+import roomReserveSystem.userInfoReserveDAO;
+import roomReserveSystem.userInformation;
 
 /**
  * Servlet implementation class controller
@@ -28,7 +31,7 @@ public class controller extends HttpServlet {
 	private HttpSession sessionVerify;
 	List<room> listRoom= new ArrayList<room>();
 	List<time> listTime= new ArrayList<time>();
-	 int year;
+	 int Year;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -84,13 +87,13 @@ public class controller extends HttpServlet {
 		        listTime = times.getTimes();
 		        roomDAO room=new roomDAO();
 		        listRoom = room.getRoom();
-		        year = Calendar.getInstance().get(Calendar.YEAR);
+		        Year = Calendar.getInstance().get(Calendar.YEAR);
 		        /*for(int i=0;i<items.size();i++){
 		        	System.out.println(items.get(i).getTimeID());
 		        }*/
 		        request.setAttribute("listTime",listTime); 
 		        request.setAttribute("listRoom",listRoom); 
-		        request.setAttribute("year",year);
+		        request.setAttribute("year",Year);
 				request.getRequestDispatcher("/searchCondition2.jsp").forward(request,response);
 			}else if(("searchConditon2").equals(request.getParameter("nPage"))){
 				if(("search").equals(request.getParameter("action"))){
@@ -106,11 +109,30 @@ public class controller extends HttpServlet {
 				    ArrayList<reservation>[][] listResult=result.getSearchYearMonth(selectedYear,selectedMonth,selectedRoom);
 					request.setAttribute("listTime",listTime); 
 				    request.setAttribute("listRoom",listRoom); 
-				    request.setAttribute("year",year);
+				    request.setAttribute("selectedYear",selectedYear);
 				    request.setAttribute("daysInMonth",daysInMonth);
+				    request.setAttribute("selectedMonth",selectedMonth);
+				    request.setAttribute("selectedRoom",selectedRoom);
 				    request.setAttribute("numTime",numTime);
 				    request.setAttribute("listResult",listResult);
 					request.getRequestDispatcher("/searchCondition2.jsp").forward(request,response);
+				}else if(("reserve").equals(request.getParameter("action"))){
+					userInfoReserveDAO info=new userInfoReserveDAO();
+					int selectedYear=Integer.parseInt(request.getParameter("YY"));
+					int selectedMonth=Integer.parseInt(request.getParameter("MM"));
+					int selectedDay=Integer.parseInt(request.getParameter("DD"));
+					Calendar mycal = new GregorianCalendar(selectedYear, selectedMonth-1,selectedDay);
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					String reserveDate= sdf.format(mycal.getTime());
+					String empID=(String)sessionVerify.getAttribute("empID");
+					List<userInformation> listEmp=info.getUserInfoReserve(empID);
+					//request.setAttribute("listEmp",listEmp); 
+					//request.setAttribute("reserveDate",reserveDate);
+					//request.setAttribute("roomID",request.getParameter("roomID")); 
+					//request.setAttribute("roomName",listRoom.get(Integer.parseInt(request.getParameter("roomID"))-1).getRoomName());
+					//request.setAttribute("timeID",request.getParameter("timeID"));
+					//request.setAttribute("timeName",listTime.get(Integer.parseInt(request.getParameter("timeID"))-1).getTimeName());
+					//request.getRequestDispatcher("/reservation.jsp").forward(request,response);
 				}
 			}
 		}//loop check session is not null
