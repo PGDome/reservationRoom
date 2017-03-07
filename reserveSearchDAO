@@ -1,0 +1,40 @@
+package roomReserveSystem;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class reserveSearchDAO {
+	//List<reservation>[][] items = new ArrayList<reservation>[][];
+	ArrayList<reservation>[][] list= new ArrayList[32][5];
+	public void setListItem(int daysInMonth,int time){
+		//int i=daysInMonth+1;
+		//int j=time+1;
+		//list = new ArrayList[i][j];
+		
+	}
+	public ArrayList<reservation>[][] getSearchYearMonth(int selectedYear,int selectedMonth,int selectedRoom ){
+		Connection conn = connectToDB.getConnection();
+	    try
+	    {
+	      Statement stmt = conn.createStatement();
+	      ResultSet rs = stmt.executeQuery("SELECT reserveDate,timeID,roomID,empID,contactInfo,purpose from reserve where YEAR(reserveDate)="+selectedYear+" and Month(reserveDate)="+selectedMonth+" and roomID="+selectedRoom+"");
+	      while(rs.next()) {
+	    	 reservation reserve=new reservation(rs.getString("reserveDate"),rs.getInt("timeID"),rs.getInt("roomID"),
+	    			 rs.getString("empID"),rs.getString("contactInfo"),rs.getString("purpose"));
+	    	 String[] temp= rs.getString("reserveDate").split("-");
+	    	 list[Integer.parseInt(temp[2])][rs.getInt("timeID")] = new ArrayList<reservation>();
+	    	 list[Integer.parseInt(temp[2])][rs.getInt("timeID")].add(reserve);
+	      }	     
+	    }
+	    catch (SQLException se)
+	    {
+	      se.printStackTrace();
+	    }
+		return list;
+	}
+	
+}
