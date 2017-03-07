@@ -1,0 +1,19 @@
+package roomReserveSystem;
+
+public class reservation {
+   private String reserveDate,empID,contactInfo,purpose;
+   private int timeID,roomID;
+   public reservation(String reserveDate,int timeID,int roomID,String empID,
+		   String contactInfo,String purpose){
+		this.reserveDate = reserveDate;
+		this.timeID = timeID;
+		this.roomID = roomID;
+		this.empID = empID;
+		this.contactInfo = contactInfo;
+		this.purpose = purpose;
+	}
+   public String getEmpID(){
+	   return this.empID;
+   }
+   
+}
