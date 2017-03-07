@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import roomReserveSystem.loginDAO;
+import roomReserveSystem.reservation;
+import roomReserveSystem.reserveSearchDAO;
 import roomReserveSystem.room;
 import roomReserveSystem.roomDAO;
 import roomReserveSystem.time;
@@ -91,10 +94,22 @@ public class controller extends HttpServlet {
 				request.getRequestDispatcher("/searchCondition2.jsp").forward(request,response);
 			}else if(("searchConditon2").equals(request.getParameter("nPage"))){
 				if(("search").equals(request.getParameter("action"))){
-					System.out.println(request.getParameter("time"));
+					//System.out.println(request.getParameter("time"));
+					int selectedYear=Integer.parseInt(request.getParameter("year"));
+					int selectedMonth=Integer.parseInt(request.getParameter("month"));
+					int selectedRoom=Integer.parseInt(request.getParameter("room"));
+					Calendar mycal = new GregorianCalendar(selectedYear, selectedMonth-1, 1);
+					int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);// Get the number of days in that month
+					int numTime=listTime.size();
+					reserveSearchDAO result = new reserveSearchDAO();
+				    result.setListItem(daysInMonth,listTime.size());
+				    ArrayList<reservation>[][] listResult=result.getSearchYearMonth(selectedYear,selectedMonth,selectedRoom);
 					request.setAttribute("listTime",listTime); 
 				    request.setAttribute("listRoom",listRoom); 
 				    request.setAttribute("year",year);
+				    request.setAttribute("daysInMonth",daysInMonth);
+				    request.setAttribute("numTime",numTime);
+				    request.setAttribute("listResult",listResult);
 					request.getRequestDispatcher("/searchCondition2.jsp").forward(request,response);
 				}
 			}
@@ -104,5 +119,4 @@ public class controller extends HttpServlet {
 		}//loop check session 
 	
 	}//loop doPost
-
 }
