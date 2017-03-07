@@ -1,0 +1,33 @@
+package roomReserveSystem;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class userInfoReserveDAO {
+	public List<userInformation> getUserInfoReserve(String empID){
+		Connection conn = connectToDB.getConnection();
+		List<userInformation> items = new ArrayList<userInformation>();
+	    try
+	    {
+	      Statement stmt = conn.createStatement();
+	      System.out.println("check");
+	      ResultSet rs = stmt.executeQuery("SELECT * from employee where empID = "+empID+" ");
+	      System.out.println("check1");
+	      if(rs.next()) {
+	    	  userInformation info=new userInformation(rs.getString("empID"), rs.getString("password"), 
+	    			  rs.getString("empDepartment"), rs.getString("empName"), rs.getString("empContact"));
+	    	
+	    	 items.add(info);
+	      }	     
+	    }
+	    catch (SQLException se)
+	    {
+	      se.printStackTrace();
+	    }
+	    return items;
+	}
+}
