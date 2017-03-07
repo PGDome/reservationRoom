@@ -1,0 +1,24 @@
+package roomReserveSystem;
+
+public class userInformation {
+	private String empID,password,empDepart,empName,empCont;
+	public userInformation(String empID,String password,String empDepart,String empName,String empCont){
+		this.empID=empID;
+		this.password=password;
+		this.empDepart=empDepart;
+		this.empName=empName;
+		this.empCont=empCont;
+	}
+	public String getEmpID(){
+		return this.empID;
+	}
+	public String getEmpDepart(){
+		return this.empDepart;
+	}
+	public String getEmpName(){
+		return this.empName;
+	}
+	public String getEmpCont(){
+		return this.empCont;
+	}
+}
