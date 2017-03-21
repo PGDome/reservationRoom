@@ -1,0 +1,48 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+window.onload = function () {
+	var a="#"+localStorage.getItem('negative');
+	$(".menu").find(a).addClass('active');
+};
+</script>
+</head>
+<body>
+<div class="sidebar-header">会議室予約システム</div>
+        <div class="sidebar-block"><span class="fa fa-user fa-2x"></span><c:out value="${sessionScope.empName}"/></div>
+         <div class="sidebar-block"><span class="fa fa-briefcase fa-2x"></span><c:out value="${sessionScope.empDepartment}"/></div>
+      	  <div class="sidebar-nav">
+        <form name="frmNav" id="frmNav" action="controller" method = "Post" >
+		<ul class="menu">
+		     <li id="reserve_info">
+                    <a href="#" OnClick="navSubmit('reserve_information','frmNav','reserve_info');">会議室予約情報</a>
+             </li>
+               <li id="search">
+                <a href="#">会議室検索</a>
+              	<ul >
+                    <li><a href="#" OnClick="navSubmit('search_datetime','frmNav','search');">予約日・時間帯で検索</a></li>
+                    <li><a href="#" OnClick="navSubmit('searchYYMM','frmNav','search');" >年・月で検索</a></li>
+                </ul>
+            </li>
+            
+			  <li id="Profile">
+                    <a  href="#" OnClick="navSubmit1('Profile','frmNav','UserInformationServlet');">利用者情報</a>
+             </li>
+           
+           
+            <li>
+                   <a  href="#" OnClick="navSubmit('logout','frmNav');" >
+                       	 ログアウト
+                    </a>
+             </li>
+        </ul>
+        <input type="hidden" name="selectedTopic" id="selectedTopic" value="" />
+        </form>
+        </div>
+</body>
+</html>
